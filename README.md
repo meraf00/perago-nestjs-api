@@ -15,33 +15,72 @@ Hierarchy. At the top of the Hierarch there is CEO and every department below a 
 answer/Report to the immediate department in the organization structure hierarchy
 </p>
 
-<img src="https://user-images.githubusercontent.com/86113690/206536077-6433af41-bfd5-4778-8cec-e735a2871c0c.png"/>
+<h2> Build SPA web application for registering organization's employee hierarchy or structure </h2>
 
 <ol>
-  <li>  Build web application using NestJS (version >= 9) for backend, PostgreSQL or SQL Server database as data 
-store
+<li> shall create employee position/role  </li>
+<li>  Build RESTFull API using NestJS (version >= 9) , PostgreSQL or SQL Server database as data 
+store</li>
+<li> The position should be hierarchical there is a parent child relationship between the positions e.g. CEO can be root position no parent and CFO is a child of CEO </li>
+<li>shall get and list the positions in a tree mode with unlimited n positions e.g. 
+<pre>
+ CEO
+ ├── CTO
+ │   └── Project Manager
+ │       └── Product Owner
+ │           ├── Tech Lead
+ │           │   ├── Frontend Developer
+ │           │   ├── Backend Developer
+ │           │   ├── DevOps Engineer
+ │           │   └── ..
+ │           ├── QA Engineer
+ │           ├── Scrum Master
+ │           └── ...
+ ├── CFO
+ │   ├── Chef Accountant
+ │   │   ├── Financial Analyst
+ │   │   └── Account and Payable
+ │   └── Internal Audit
+ ├── COO
+ │   ├── Product Manager
+ │   ├── Operation Manager
+ │   ├── Customer Relation
+ │   └── ...
+ └── HR
+ </pre>
+ </li>
+ <li>Model (you can update this model if needed) 
+ 
+<table class="table">
+<tr>  <th>Column </th>  <th>Type </th></tr>
+<tr> <td> id </td>  <td> GUID </td>  </tr>
+<tr> <td> name </td>  <td> string </td>  </tr>
+<tr> <td> description </td>  <td> string </td>  </tr>
+<tr> <td> parentId </td>  <td> GUID </td>  </tr>
+</table>	
+<li>
   <pre>
-a. Insert new structure/Department
-    • Every Department must contain minimum information like Name, Description and Managing 
+a. Insert new employe position/role
+    • Every position must contain minimum information like Name, Description and Managing 
       Department to whom the department Report To etc.
-b. Update previously saved structure/department
-c. Display single structure/Department and when requested display immediate managing 
-   structure/Department and structures/departments under its management. For example:
-    • Department Name: CEO
+b. Update previously saved position/role
+c. Display single position/role and when requested display immediate managing 
+   sposition/role and positions/roles under its management. For example:
+    • position Name: CEO
     • Description: Chief Executive Officer
-    • Click Here to display Managing Department: Managing Department-None
-    • Click Here to display structures/departments under its management: CFO: CMO:  
- d. Display all structure/department according to hierarchy (You can use table or tree)
+    • Click Here to display Managing position: Managing Department-None
+    • Click Here to display structures/position under its management: CFO: CMO:  
+ d. Display all structure/position according to hierarchy (You can use table or tree)
   </pre>  
   </li>
   <p>
   <h3> Note:</h3>
   <ul>
-    <li> Every structure/department will answer/Report to one structure/department except CEO</li>
+    <li> Every structure/position will answer/Report to one structure/position except CEO</li>
 <li> The client wants to add or Update management structure at any time.</li>
 <li>The development should consider separation of concern and maintainability.</li>
 <li>The development should include Unit Test for the controller.</li>
-<li>To test your API, use Postman or Swagge</li>
+<li>To test your API, use Postman or Swagger</li>
   </ul>
   </p>
   <p>
