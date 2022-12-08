@@ -62,13 +62,10 @@ a. Insert new employe position/role
     • Every position must contain minimum information like Name, Description and Managing 
       position to whom the position Report To etc.
 b. Update previously saved position/role
-c. Get single position/role and when requested display immediate managing 
-   position/role and positions/roles under its management. For example:
-    • position Name: CEO
-    • Description: Chief Executive Officer     
- d. Contain all structure/position according to hierarchy (You can use table or tree)
- e. Get all childrens by specific position 
- f. remove child of a specific position 
+c. Get single position/role detail     
+d. Get all structure/position according to hierarchy (You can use table or tree)
+e. Get all childrens of a position 
+f. remove  position  at any time based on the heirarchy 
   </pre>  
   </li>
   <p>
