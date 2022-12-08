@@ -59,13 +59,13 @@ store</li>
 <li>
   <pre>
 a. Insert new employe position/role
-    • Every position must contain minimum information like Name, Description and Managing 
-      position to whom the position Report To etc.
+    • Every position/role must contain minimum information like Name, Description and Managing 
+      position/role to whom the position Report To etc.
 b. Update previously saved position/role
 c. Get single position/role detail     
-d. Get all structure/position according to hierarchy (You can use table or tree)
-e. Get all childrens of a position 
-f. remove  position  at any time based on the heirarchy 
+d. Get all position/role structure according to hierarchy (You can use table or tree)
+e. Get all childrens of a position/role 
+f. remove  position/role  at any time based on the heirarchy 
   </pre>  
   </li>
   <p>
