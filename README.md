@@ -60,19 +60,21 @@ store</li>
   <pre>
 a. Insert new employe position/role
     • Every position must contain minimum information like Name, Description and Managing 
-      Department to whom the department Report To etc.
+      position to whom the position Report To etc.
 b. Update previously saved position/role
 c. Get single position/role and when requested display immediate managing 
-   sposition/role and positions/roles under its management. For example:
+   position/role and positions/roles under its management. For example:
     • position Name: CEO
     • Description: Chief Executive Officer     
  d. Contain all structure/position according to hierarchy (You can use table or tree)
+ e. Get all childrens by specific position 
+ f. remove child of a specific position 
   </pre>  
   </li>
   <p>
   <h3> Note:</h3>
   <ul>
-    <li> Every structure/position will answer/Report to one structure/position except CEO</li>
+ <li> Every position/role will answer/Report to one position/role except CEO</li>
 <li> The client wants to add or Update management structure at any time.</li>
 <li>The development should consider separation of concern and maintainability.</li>
 <li>The development should include Unit Test for the controller.</li>
@@ -83,7 +85,7 @@ c. Get single position/role and when requested display immediate managing
 <h3>Reading Materials</h3>
 <h4> Books</h4>
 <ul>
-  <li>Patterns, Principles and Practices of Domain Driven Design (Scott Millett Nick Tune)</li>
+ <li>Patterns, Principles and Practices of Domain Driven Design (Scott Millett Nick Tune)</li>
 <li> Clean Architecture, A Craftsman’s Guide to Software Structure and Design, (Robert C Martin)</li>
 <li>DDD Reference (Domain Driven Design Reference)</li>
 <li>DDD Quickly (Domain Driven Design Quickly)</li>
