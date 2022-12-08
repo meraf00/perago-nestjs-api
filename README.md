@@ -9,14 +9,12 @@ access and test your api via swagger
 http://localhost:3000/api
 
 <h1> Requirements </h1>
+<h2> Build  web application(API) for registering organization's employee hierarchy or structure </h2>
 <p style="text-align:justfy; color:blue">
-Assume medium level organization management structure with different level of department/Office
-Hierarchy. At the top of the Hierarch there is CEO and every department below a given hierarchy will
-answer/Report to the immediate department in the organization structure hierarchy
+Assume medium level organization management structure with different level of positions/roles
+Hierarchy. At the top of the Hierarch there is CEO and every position below a given hierarchy will
+answer/Report to the immediate position in the organization's position structure hierarchy
 </p>
-
-<h2> Build SPA web application for registering organization's employee hierarchy or structure </h2>
-
 <ol>
 <li> shall create employee position/role  </li>
 <li>  Build RESTFull API using NestJS (version >= 9) , PostgreSQL or SQL Server database as data 
@@ -64,13 +62,11 @@ a. Insert new employe position/role
     • Every position must contain minimum information like Name, Description and Managing 
       Department to whom the department Report To etc.
 b. Update previously saved position/role
-c. Display single position/role and when requested display immediate managing 
+c. Get single position/role and when requested display immediate managing 
    sposition/role and positions/roles under its management. For example:
     • position Name: CEO
-    • Description: Chief Executive Officer
-    • Click Here to display Managing position: Managing Department-None
-    • Click Here to display structures/position under its management: CFO: CMO:  
- d. Display all structure/position according to hierarchy (You can use table or tree)
+    • Description: Chief Executive Officer     
+ d. Contain all structure/position according to hierarchy (You can use table or tree)
   </pre>  
   </li>
   <p>
@@ -103,7 +99,7 @@ c. Display single position/role and when requested display immediate managing
 <h4>For Database<h4>
   <ul>
     <li><a href="https://www.postgresql.org/docs/9.6/postgres-fdw.html">  PostgreSQL Documentation </a></li>    
-    <li> <a href="https://docs.microsoft.com/en-us/sql/sql-server/?view=sql-server-ver16"> SQL Serve </a>   </li>
+    <li> <a href="https://docs.microsoft.com/en-us/sql/sql-server/?view=sql-server-ver16"> SQL Server </a>   </li>
     </ul>
 </p>
 </ol>
