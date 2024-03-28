@@ -4,7 +4,7 @@ type CreateRoleOptions = Readonly<{
     id: string;
     name: string;
     description: string;
-    reportTo: Role | null;
+    reportsTo: Role | null;
     createdAt?: Date;
     updatedAt?: Date;
 }>

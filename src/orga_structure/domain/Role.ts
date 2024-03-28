@@ -1,0 +1,43 @@
+import { AggregateRoot } from "@nestjs/cqrs";
+import { BaseModel } from "src/core/BaseModel";
+
+export type RoleProperties = BaseModel & {
+    name: string;
+    description: string;
+    reportsTo: Role | null;
+}
+
+export class Role extends AggregateRoot implements RoleProperties {
+    public readonly id: string;
+    public name: string;
+    public description: string;
+    public reportsTo: Role | null;
+    public createdAt: Date;
+    public updatedAt: Date;
+
+
+    constructor(properties: RoleProperties) {
+        super();
+        Object.assign(this, properties);
+    }
+
+    updateName(name: string): void {
+        this.name = name;
+        this.updatedAt = new Date();
+    }
+
+    updateDescription(description: string): void {
+        this.description = description;
+        this.updatedAt = new Date();
+    }
+
+    updateParent(role: Role): void {
+        this.reportsTo = role;
+        this.updatedAt = new Date();
+    }
+
+    isRoot(): boolean {
+        return this.reportsTo === null;
+    }
+
+}
