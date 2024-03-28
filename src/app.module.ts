@@ -3,8 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { UserEntity } from './entities/user.entity';
-import { PhotoEntity } from './entities/photo.entity';
 
 @Module({
   imports: [
@@ -15,7 +13,7 @@ import { PhotoEntity } from './entities/photo.entity';
       username: 'postgres',
       password: 'root',
       database: 'orga_structure',
-      entities: [UserEntity, PhotoEntity],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
   ],
@@ -24,8 +22,6 @@ import { PhotoEntity } from './entities/photo.entity';
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {
-console.log(dataSource.toString())
-
+    console.log(dataSource);
   }
-
 }
