@@ -1,10 +1,6 @@
-import { IQueryResult } from "@nestjs/cqrs";
+import { IQueryResult } from '@nestjs/cqrs';
+import { Role } from 'src/orga_structure/domain/Role';
 
 export class FindRolesResult implements IQueryResult {
-    constructor(public readonly role: Readonly<{
-        id: string;
-        name: string;
-        description: string
-        reportsTo: string
-    }>[]) { }
+  constructor(public readonly roles: ReadonlyArray<Role>) {}
 }

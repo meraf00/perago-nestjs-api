@@ -1,8 +1,9 @@
-import { IQuery } from "@nestjs/cqrs";
-import { ISpecification } from "src/core/specification";
-import { Role } from "src/orga_structure/domain/Role";
-
+import { IQuery } from '@nestjs/cqrs';
 
 export class FindRolesQuery implements IQuery {
-    constructor(spec?: ISpecification<Role>) { }
+  constructor(
+    public readonly name?: string,
+    public readonly description?: string,
+    public readonly reportsTo?: string,
+  ) {}
 }
