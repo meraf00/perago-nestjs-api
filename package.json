@@ -34,7 +34,8 @@
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20",
     "uuid": "^9.0.1",
-    "webpack": "^5.91.0"
+    "webpack": "^5.91.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.3.2",
