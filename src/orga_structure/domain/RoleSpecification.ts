@@ -1,25 +1,47 @@
-import { CompositeSpecification } from "src/core/specification";
-import { Role } from "./Role";
-
+import { CompositeSpecification } from 'src/core/specification';
+import { Role } from './Role';
 
 export class RoleNameSpec extends CompositeSpecification<Role> {
+  constructor(private readonly name?: string) {
+    super();
+  }
 
-    constructor(private readonly name: string) {
-        super();
+  isSatisfiedBy(role: Role): boolean {
+    if (this.name === undefined) {
+      return true;
     }
+    return role.name === this.name;
+  }
+}
 
-    isSatisfiedBy(role: Role): boolean {
-        return role.name === this.name;
+export class RoleDescriptionContainsSpec extends CompositeSpecification<Role> {
+  constructor(private readonly description?: string) {
+    super();
+  }
+
+  isSatisfiedBy(role: Role): boolean {
+    if (this.description === undefined) {
+      return true;
     }
+    return role.description.includes(this.description);
+  }
 }
 
 export class ChildOfSpec extends CompositeSpecification<Role> {
+  constructor(private readonly role?: Role | string | null) {
+    super();
+  }
 
-    constructor(private readonly role: Role) {
-        super();
+  isSatisfiedBy(role: Role): boolean {
+    if (typeof this.role === 'string') {
+      return role.reportsTo.id === this.role;
     }
-
-    isSatisfiedBy(role: Role): boolean {
-        return role.reportsTo === this.role;
+    if (this.role === null) {
+      return role.reportsTo === null;
     }
-} 
+    if (this.role === undefined) {
+      return true;
+    }
+    return role.reportsTo === this.role;
+  }
+}
