@@ -19,7 +19,7 @@ export class FindRoleByIdHandler
 
     const roleDto = {
       ...role,
-      reportsTo: role.reportsTo.id,
+      reportsTo: role.reportsTo ? role.reportsTo.id : null,
       subordinates: role.subordinates.map((subordinate) => subordinate.id),
     };
 

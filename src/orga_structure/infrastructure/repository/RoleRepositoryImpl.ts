@@ -29,12 +29,17 @@ export class RolesRepositoryImpl implements RolesRepository {
   };
 
   findById: (id: string) => Promise<Role> = async (id) => {
-    const entity = await this.roleRepository.findOne({ where: { id } });
+    const entity = await this.roleRepository.findOne({
+      where: { id },
+      relations: ['reportsTo', 'subordinates'],
+    });
     return this.modelToEntity(entity);
   };
 
   findOne: (spec?: ISpecification<Role>) => Promise<Role> = async (spec) => {
-    const entities = await this.roleRepository.find();
+    const entities = await this.roleRepository.find({
+      relations: ['reportsTo', 'subordinates'],
+    });
 
     const roles = entities
       .map((entity) => this.modelToEntity(entity))
@@ -48,7 +53,9 @@ export class RolesRepositoryImpl implements RolesRepository {
   };
 
   find: (spec?: ISpecification<Role>) => Promise<Role[]> = async (spec) => {
-    const entities = await this.roleRepository.find();
+    const entities = await this.roleRepository.find({
+      relations: ['reportsTo', 'subordinates'],
+    });
 
     const roles = entities
       .map((entity) => this.modelToEntity(entity))
