@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class RoleEntity {
+export class RoleModel {
   @PrimaryColumn()
   id: string;
 
@@ -11,13 +11,13 @@ export class RoleEntity {
   @Column()
   description: string;
 
-  @OneToMany(() => RoleEntity, (role) => role.reportsTo, {
+  @OneToMany(() => RoleModel, (role) => role.reportsTo, {
     onDelete: 'CASCADE',
   })
-  subordinates: RoleEntity[];
+  subordinates: RoleModel[];
 
-  @ManyToOne(() => RoleEntity, (role) => role.id)
-  reportsTo?: RoleEntity;
+  @ManyToOne(() => RoleModel, (role) => role.id)
+  reportsTo?: RoleModel;
 
   @Column({ type: 'date', default: () => 'CURRENT_TIMESTAMP' })
   createdAt?: Date;

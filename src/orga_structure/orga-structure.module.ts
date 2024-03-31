@@ -1,6 +1,6 @@
 import { Module, Provider } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RoleEntity } from './infrastructure/entity/Role';
+import { RoleModel } from './infrastructure/model/Role.model';
 import { RoleController } from './api/controllers/role.controller';
 import { CqrsModule } from '@nestjs/cqrs';
 import { FindRoleByIdHandler } from './application/query/handlers/FindRoleByIdHandler';
@@ -36,7 +36,7 @@ const application = [
 const domain = [RoleFactory, RolesDomainService];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RoleEntity]), CqrsModule],
+  imports: [TypeOrmModule.forFeature([RoleModel]), CqrsModule],
   controllers: [RoleController],
   providers: [...domain, ...application, ...infrastructure],
   exports: [TypeOrmModule],

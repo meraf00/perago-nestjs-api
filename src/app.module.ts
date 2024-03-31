@@ -13,7 +13,7 @@ import { OrgaStructureModule } from './orga_structure/orga-structure.module';
       username: 'postgres',
       password: 'root',
       database: 'orga_structure',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [__dirname + '/**/*.model{.ts,.js}'],
       synchronize: true,
       autoLoadEntities: true,
     }),
