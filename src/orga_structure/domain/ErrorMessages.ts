@@ -1,1 +1,0 @@
-export default { ROLE_WITH_CHILD_DELETE_ERROR: 'Cannot delete role with child roles' };
