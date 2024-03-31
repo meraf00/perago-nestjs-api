@@ -1,11 +1,12 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { ISpecification } from 'src/shared/specification';
-import { Role, RoleProperties } from 'src/orga_structure/domain/Role';
+import { Role, RoleProperties } from 'src/orga_structure/domain/role/Role';
 import { RoleModel } from 'src/orga_structure/infrastructure/model/Role.model';
-import { RolesRepository } from 'src/orga_structure/domain/RoleRepository';
+import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { RoleFactory } from 'src/orga_structure/domain/RoleFactory';
+import { RoleFactory } from 'src/orga_structure/domain/role/RoleFactory';
+import { Hierarchy } from 'src/orga_structure/domain/role/Hierarchy';
 
 export class RolesRepositoryImpl implements RolesRepository {
   constructor(
@@ -62,6 +63,36 @@ export class RolesRepositoryImpl implements RolesRepository {
       .filter((role) => spec.isSatisfiedBy(role));
 
     return roles;
+  };
+
+  getHierarchy: () => Promise<Hierarchy> = async () => {
+    const roles = await this.roleRepository.find();
+
+    const map = new Map<string, Hierarchy>();
+
+    roles.forEach((role) => {
+      map.set(role.id, {
+        id: role.id,
+        name: role.name,
+        description: role.description,
+        subordinates: [],
+      });
+    });
+
+    let root: Hierarchy = null;
+
+    roles.forEach((role) => {
+      const node = map.get(role.id);
+      const parent = map.get(role.reportsTo.id);
+
+      if (parent) {
+        parent.subordinates.push(node);
+      } else {
+        root = node;
+      }
+    });
+
+    return root;
   };
 
   delete: (id: string) => Promise<void> = async (id) => {
