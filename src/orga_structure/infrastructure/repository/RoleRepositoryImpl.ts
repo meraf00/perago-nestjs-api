@@ -66,7 +66,7 @@ export class RolesRepositoryImpl implements RolesRepository {
   };
 
   getHierarchy: () => Promise<Hierarchy> = async () => {
-    const roles = await this.roleRepository.find();
+    const roles = await this.roleRepository.find({ relations: ['reportsTo'] });
 
     const map = new Map<string, Hierarchy>();
 
@@ -83,7 +83,7 @@ export class RolesRepositoryImpl implements RolesRepository {
 
     roles.forEach((role) => {
       const node = map.get(role.id);
-      const parent = map.get(role.reportsTo.id);
+      const parent = map.get(role.reportsTo?.id);
 
       if (parent) {
         parent.subordinates.push(node);
@@ -100,14 +100,7 @@ export class RolesRepositoryImpl implements RolesRepository {
   };
 
   entityToModel(role: Role): RoleModel {
-    const properties = JSON.parse(JSON.stringify(role)) as RoleProperties;
-    return {
-      ...properties,
-      reportsTo: role.reportsTo ? this.entityToModel(role.reportsTo) : null,
-      subordinates: role.subordinates.map((subordinate) =>
-        this.entityToModel(subordinate),
-      ),
-    };
+    return JSON.parse(JSON.stringify(role)) as RoleProperties;
   }
 
   modelToEntity(model: RoleModel): Role {

@@ -21,6 +21,7 @@ import {
   CreateRoleDto,
   createRoleSchema,
 } from '../dto/create-role/create-role-request.dto';
+import { GetHierarchyQuery } from 'src/orga_structure/application/query/GetHierarchyQuery';
 
 @Controller('roles')
 export class RoleController {
@@ -74,15 +75,27 @@ export class RoleController {
     },
     required: false,
   })
+  @ApiQuery({
+    name: 'hierarchy',
+    schema: {
+      type: 'boolean',
+    },
+    required: false,
+  })
   @ApiResponse({ status: 200, type: FindRolesResponseDTO })
   @Get()
   async getRoles(
     @Query('name') name,
     @Query('description') description,
     @Query('reportsTo') reportsTo,
+    @Query('hierarchy') hierachy,
   ): Promise<FindRolesResponseDTO> {
-    const query = new FindRolesQuery(name, description, reportsTo);
-    return this.queryBus.execute(query);
+    if (hierachy) {
+      return this.queryBus.execute(new GetHierarchyQuery());
+    } else {
+      const query = new FindRolesQuery(name, description, reportsTo);
+      return this.queryBus.execute(query);
+    }
   }
 
   @ApiParam({

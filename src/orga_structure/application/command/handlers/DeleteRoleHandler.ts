@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DeleteRoleCommand } from '../DeleteRoleCommand';
-import { RolesRepository } from 'src/orga_structure/domain/RoleRepository';
+import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { InjectionTokens } from '../../InjectionTokens';
 import { Inject } from '@nestjs/common';
 

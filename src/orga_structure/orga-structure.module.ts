@@ -8,8 +8,7 @@ import { FindRolesHandler } from './application/query/handlers/FindRolesHandler'
 import { GetHierarchyHandler } from './application/query/handlers/GetHierarchyHandler';
 import { InjectionTokens } from './application/InjectionTokens';
 import { RolesRepositoryImpl } from './infrastructure/repository/RoleRepositoryImpl';
-import { RoleFactory } from './domain/RoleFactory';
-import { RolesDomainService } from './domain/RolesDomainService';
+import { RoleFactory } from './domain/role/RoleFactory';
 import { DeleteRoleHandler } from './application/command/handlers/DeleteRoleHandler';
 import { UpdateRoleHandler } from './application/command/handlers/UpdateRoleHandler';
 import { CreateRoleHandler } from './application/command/handlers/CreateRoleHandler';
@@ -33,7 +32,7 @@ const application = [
   DeleteRoleHandler,
 ];
 
-const domain = [RoleFactory, RolesDomainService];
+const domain = [RoleFactory];
 
 @Module({
   imports: [TypeOrmModule.forFeature([RoleModel]), CqrsModule],
