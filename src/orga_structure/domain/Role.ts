@@ -1,5 +1,5 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import { BaseModel } from 'src/core/BaseModel';
+import { BaseModel } from 'src/shared/BaseModel';
 
 export type RoleProperties = BaseModel & {
   name: string;

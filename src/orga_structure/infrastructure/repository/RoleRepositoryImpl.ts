@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { ISpecification } from 'src/core/specification';
+import { ISpecification } from 'src/shared/specification';
 import { Role, RoleProperties } from 'src/orga_structure/domain/Role';
 import { RoleModel } from 'src/orga_structure/infrastructure/model/Role.model';
 import { RolesRepository } from 'src/orga_structure/domain/RoleRepository';

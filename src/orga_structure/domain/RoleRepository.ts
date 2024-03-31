@@ -1,4 +1,4 @@
-import { ISpecification } from 'src/core/specification';
+import { ISpecification } from 'src/shared/specification';
 import { Role } from './Role';
 
 export interface RolesRepository {

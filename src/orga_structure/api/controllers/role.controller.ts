@@ -16,7 +16,7 @@ import { FindRolesQuery } from 'src/orga_structure/application/query/FindRolesQu
 import { FindRoleResponseDTO } from '../dto/find-role/find-role.response.dto';
 import { FindRolesResponseDTO } from '../dto/find-role/find-roles.response.dto';
 import { CreateRoleCommand } from 'src/orga_structure/application/command/CreateRoleCommand';
-import { ZodValidationPipe } from 'src/core/validator';
+import { ZodValidationPipe } from 'src/shared/validator';
 import {
   CreateRoleDto,
   createRoleSchema,
