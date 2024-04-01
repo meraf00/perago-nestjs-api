@@ -10,7 +10,7 @@ export class RoleNameSpec extends CompositeSpecification<Role> {
     if (this.name === undefined) {
       return true;
     }
-    return role.name === this.name;
+    return role.name.toLocaleLowerCase() === this.name.toLocaleLowerCase();
   }
 }
 
@@ -23,7 +23,9 @@ export class RoleDescriptionContainsSpec extends CompositeSpecification<Role> {
     if (this.description === undefined) {
       return true;
     }
-    return role.description.includes(this.description);
+    return role.description
+      .toLocaleLowerCase()
+      .includes(this.description.toLocaleLowerCase());
   }
 }
 
