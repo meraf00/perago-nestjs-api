@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 
-@Entity()
+@Entity('roles')
 export class RoleModel {
   @PrimaryColumn()
   id: string;
@@ -16,7 +16,7 @@ export class RoleModel {
   })
   subordinates: RoleModel[];
 
-  @ManyToOne(() => RoleModel, (role) => role.id)
+  @ManyToOne(() => RoleModel, (role) => role.id, { onDelete: 'CASCADE' })
   reportsTo?: RoleModel;
 
   @Column({ type: 'date', default: () => 'CURRENT_TIMESTAMP' })

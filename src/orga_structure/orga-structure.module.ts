@@ -6,12 +6,13 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { FindRoleByIdHandler } from './application/query/handlers/FindRoleByIdHandler';
 import { FindRolesHandler } from './application/query/handlers/FindRolesHandler';
 import { GetHierarchyHandler } from './application/query/handlers/GetHierarchyHandler';
-import { InjectionTokens } from './application/InjectionTokens';
+import { InjectionTokens } from 'src/shared/InjectionTokens';
 import { RolesRepositoryImpl } from './infrastructure/repository/RoleRepositoryImpl';
 import { RoleFactory } from './domain/role/RoleFactory';
 import { DeleteRoleHandler } from './application/command/handlers/DeleteRoleHandler';
 import { UpdateRoleHandler } from './application/command/handlers/UpdateRoleHandler';
 import { CreateRoleHandler } from './application/command/handlers/CreateRoleHandler';
+import { RoleValidator } from './domain/role/RoleValidator';
 
 const infrastructure: Provider[] = [
   {
@@ -32,7 +33,7 @@ const application = [
   DeleteRoleHandler,
 ];
 
-const domain = [RoleFactory];
+const domain = [RoleFactory, RoleValidator];
 
 @Module({
   imports: [TypeOrmModule.forFeature([RoleModel]), CqrsModule],

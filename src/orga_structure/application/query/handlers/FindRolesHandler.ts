@@ -3,7 +3,7 @@ import { FindRolesQuery } from '../FindRolesQuery';
 import { FindRolesResult } from '../result/FindRolesResult';
 import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { Inject } from '@nestjs/common';
-import { InjectionTokens } from '../../InjectionTokens';
+import { InjectionTokens } from 'src/shared/InjectionTokens';
 import {
   ChildOfSpec,
   RoleDescriptionContainsSpec,

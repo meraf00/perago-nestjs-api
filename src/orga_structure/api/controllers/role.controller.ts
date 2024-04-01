@@ -22,6 +22,12 @@ import {
   createRoleSchema,
 } from '../dto/create-role/create-role-request.dto';
 import { GetHierarchyQuery } from 'src/orga_structure/application/query/GetHierarchyQuery';
+import { DeleteRoleCommand } from 'src/orga_structure/application/command/DeleteRoleCommand';
+import {
+  UpdateRoleDto,
+  updateRoleSchema,
+} from '../dto/update-role/update-role-request.dto';
+import { UpdateRoleCommand } from 'src/orga_structure/application/command/UpdateRoleCommand';
 
 @Controller('roles')
 export class RoleController {
@@ -30,12 +36,11 @@ export class RoleController {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Post()
   @ApiBody({
     type: CreateRoleDto,
     required: true,
     examples: {
-      createRole: {
+      'Create Role': {
         value: {
           name: 'CEO',
           description: 'Chief Executive Officer',
@@ -46,6 +51,8 @@ export class RoleController {
   })
   @ApiResponse({ status: 201, description: 'Role created' })
   @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 409, description: "Role parent doesn't exist" })
+  @Post()
   async createRole(
     @Body(new ZodValidationPipe(createRoleSchema)) dto: CreateRoleDto,
   ) {
@@ -113,9 +120,51 @@ export class RoleController {
     return result;
   }
 
+  @ApiBody({
+    type: UpdateRoleDto,
+    required: true,
+    examples: {
+      'Update Role': {
+        value: {
+          name: 'CEO',
+          description: 'Chief Executive Officer',
+          reportsTo: null,
+        },
+      },
+    },
+  })
+  @ApiParam({
+    name: 'roleId',
+    schema: {
+      type: 'string',
+      format: 'uuid',
+    },
+  })
   @Put(':roleId')
-  async updateRole() {}
+  async updateRole(
+    @Param('roleId', new ParseUUIDPipe({ version: '4' })) roleId: string,
+    @Body(new ZodValidationPipe(updateRoleSchema)) dto: UpdateRoleDto,
+  ) {
+    const command = new UpdateRoleCommand(
+      roleId,
+      dto.name,
+      dto.description,
+      dto.reportsTo,
+    );
+    return this.commandBus.execute(command);
+  }
 
+  @ApiParam({
+    name: 'roleId',
+    schema: {
+      type: 'string',
+      format: 'uuid',
+    },
+  })
   @Delete(':roleId')
-  async deleteRole() {}
+  async deleteRole(
+    @Param('roleId', new ParseUUIDPipe({ version: '4' })) roleId: string,
+  ) {
+    this.commandBus.execute(new DeleteRoleCommand(roleId));
+  }
 }

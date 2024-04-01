@@ -29,11 +29,13 @@ export class RolesRepositoryImpl implements RolesRepository {
     }
   };
 
-  findById: (id: string) => Promise<Role> = async (id) => {
+  findById: (id: string) => Promise<Role | null> = async (id) => {
     const entity = await this.roleRepository.findOne({
       where: { id },
       relations: ['reportsTo', 'subordinates'],
     });
+
+    if (!entity) return null;
     return this.modelToEntity(entity);
   };
 
@@ -44,7 +46,7 @@ export class RolesRepositoryImpl implements RolesRepository {
 
     const roles = entities
       .map((entity) => this.modelToEntity(entity))
-      .filter((role) => spec.isSatisfiedBy(role));
+      .filter((role) => (spec ? spec.isSatisfiedBy(role) : true));
 
     if (roles.length === 0) {
       return null;
@@ -60,7 +62,7 @@ export class RolesRepositoryImpl implements RolesRepository {
 
     const roles = entities
       .map((entity) => this.modelToEntity(entity))
-      .filter((role) => spec.isSatisfiedBy(role));
+      .filter((role) => (spec ? spec.isSatisfiedBy(role) : true));
 
     return roles;
   };

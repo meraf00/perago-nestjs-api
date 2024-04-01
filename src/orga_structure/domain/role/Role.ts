@@ -37,10 +37,6 @@ export class Role extends AggregateRoot implements RoleProperties {
     this.updatedAt = new Date();
   }
 
-  isRoot(): boolean {
-    return this.reportsTo === null;
-  }
-
   addSubordinate(role: Role): void {
     role.updateParent(this);
     this.subordinates.push(role);

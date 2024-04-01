@@ -2,8 +2,9 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateRoleCommand } from '../CreateRoleCommand';
 import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { RoleFactory } from 'src/orga_structure/domain/role/RoleFactory';
-import { InjectionTokens } from '../../InjectionTokens';
-import { Inject } from '@nestjs/common';
+import { InjectionTokens } from 'src/shared/InjectionTokens';
+import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
+import { RoleValidator } from 'src/orga_structure/domain/role/RoleValidator';
 
 @CommandHandler(CreateRoleCommand)
 export class CreateRoleHandler
@@ -13,13 +14,20 @@ export class CreateRoleHandler
     @Inject(InjectionTokens.ROLE_REPOSITORY)
     private readonly rolesRepository: RolesRepository,
     private readonly roleFactory: RoleFactory,
+    private readonly roleValidator: RoleValidator,
   ) {}
 
   async execute(command: CreateRoleCommand): Promise<void> {
-    const parent = await this.rolesRepository.findById(command.reportsTo);
+    let parent;
 
-    if (!parent) {
-      throw new Error('Parent role not found');
+    if (command.reportsTo) {
+      parent = await this.rolesRepository.findById(command.reportsTo);
+
+      if (!parent) {
+        throw new NotFoundException('Parent role not found');
+      }
+    } else {
+      parent = null;
     }
 
     const id = await this.rolesRepository.generateId();
@@ -31,6 +39,10 @@ export class CreateRoleHandler
       reportsTo: parent,
     });
 
-    await this.rolesRepository.save(role);
+    if (await this.roleValidator.isValid(role)) {
+      await this.rolesRepository.save(role);
+    } else {
+      throw new ConflictException('Root role already exists.');
+    }
   }
 }

@@ -3,7 +3,7 @@ import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { FindRoleByIdQuery } from '../FindRoleByIdQuery';
 import { FindRoleResult } from '../result/FindRoleResult';
 import { Inject } from '@nestjs/common';
-import { InjectionTokens } from '../../InjectionTokens';
+import { InjectionTokens } from 'src/shared/InjectionTokens';
 
 @QueryHandler(FindRoleByIdQuery)
 export class FindRoleByIdHandler
