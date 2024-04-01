@@ -29,16 +29,16 @@ import {
   UpdateRoleDto,
   updateRoleSchema,
 } from '../dto/update-role/update-role-request.dto';
-import { FindRoleByIdQuery } from 'src/orga_structure/application/query/find-role/FindRoleByIdQuery';
-import { FindRolesQuery } from 'src/orga_structure/application/query/find-roles/FindRolesQuery';
-import { GetHierarchyQuery } from 'src/orga_structure/application/query/get-hierarchy/GetHierarchyQuery';
-import { CreateRoleCommand } from 'src/orga_structure/application/command/create/CreateRoleCommand';
-import { UpdateRoleCommand } from 'src/orga_structure/application/command/update/UpdateRoleCommand';
-import { DeleteRoleCommand } from 'src/orga_structure/application/command/delete/DeleteRoleCommand';
+import { FindRoleByIdQuery } from '../../application/query/find-role/FindRoleByIdQuery';
+import { FindRolesQuery } from '../../application/query/find-roles/FindRolesQuery';
+import { GetHierarchyQuery } from '../../application/query/get-hierarchy/GetHierarchyQuery';
+import { CreateRoleCommand } from '../../application/command/create/CreateRoleCommand';
+import { UpdateRoleCommand } from '../../application/command/update/UpdateRoleCommand';
+import { DeleteRoleCommand } from '../../application/command/delete/DeleteRoleCommand';
 
 @ApiTags('Roles')
 @Controller('roles')
-export class RoleController {
+export class RolesController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,

@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DeleteRoleCommand } from './DeleteRoleCommand';
-import { IRolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
-import { InjectionTokens } from 'src/shared/InjectionTokens';
+import { IRolesRepository } from '../../../domain/role/RoleRepository';
+import { InjectionTokens } from '../../../../shared/InjectionTokens';
 import { Inject, NotFoundException } from '@nestjs/common';
 
 @CommandHandler(DeleteRoleCommand)

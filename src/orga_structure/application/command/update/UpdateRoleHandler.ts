@@ -1,9 +1,9 @@
+import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UpdateRoleCommand } from './UpdateRoleCommand';
-import { IRolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
-import { InjectionTokens } from 'src/shared/InjectionTokens';
-import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
-import { RoleValidator } from 'src/orga_structure/domain/role/RoleValidator';
+import { IRolesRepository } from '../../../domain/role/RoleRepository';
+import { InjectionTokens } from '../../../../shared/InjectionTokens';
+import { RoleValidator } from '../../../domain/role/RoleValidator';
 
 @CommandHandler(UpdateRoleCommand)
 export class UpdateRoleHandler

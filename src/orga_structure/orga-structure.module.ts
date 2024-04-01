@@ -1,7 +1,7 @@
 import { Module, Provider } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoleModel } from './infrastructure/model/Role.model';
-import { RoleController } from './api/controllers/role.controller';
+import { RolesController } from './api/controllers/role.controller';
 import { CqrsModule } from '@nestjs/cqrs';
 
 import { InjectionTokens } from 'src/shared/InjectionTokens';
@@ -39,7 +39,7 @@ const domain = [RoleFactory, RoleValidator];
 
 @Module({
   imports: [TypeOrmModule.forFeature([RoleModel]), CqrsModule],
-  controllers: [RoleController],
+  controllers: [RolesController],
   providers: [...domain, ...application, ...infrastructure],
   exports: [TypeOrmModule],
 })

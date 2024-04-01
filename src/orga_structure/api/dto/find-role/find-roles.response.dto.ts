@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { FindRoleResult } from 'src/orga_structure/application/query/find-role/FindRoleResult';
+import { FindRoleResult } from '../../../application/query/find-role/FindRoleResult';
 
 class Role {
   @ApiProperty({ example: '550e8400-e29b-41d4-a716-446655440001' })

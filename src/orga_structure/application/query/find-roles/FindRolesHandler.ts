@@ -1,14 +1,14 @@
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { IRolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { Inject } from '@nestjs/common';
-import { InjectionTokens } from 'src/shared/InjectionTokens';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { FindRolesQuery } from './FindRolesQuery';
+import { FindRolesResult } from './FindRolesResult';
+import { IRolesRepository } from '../../../domain/role/RoleRepository';
+import { InjectionTokens } from '../../../../shared/InjectionTokens';
 import {
   ChildOfSpec,
   RoleDescriptionContainsSpec,
   RoleNameSpec,
-} from 'src/orga_structure/domain/role/RoleSpecification';
-import { FindRolesResult } from './FindRolesResult';
-import { FindRolesQuery } from './FindRolesQuery';
+} from '../../../domain/role/RoleSpecification';
 
 @QueryHandler(FindRolesQuery)
 export class FindRolesHandler

@@ -1,10 +1,10 @@
+import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateRoleCommand } from './CreateRoleCommand';
-import { IRolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
-import { RoleFactory } from 'src/orga_structure/domain/role/RoleFactory';
-import { InjectionTokens } from 'src/shared/InjectionTokens';
-import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
-import { RoleValidator } from 'src/orga_structure/domain/role/RoleValidator';
+import { IRolesRepository } from '../../../domain/role/RoleRepository';
+import { RoleFactory } from '../../../domain/role/RoleFactory';
+import { RoleValidator } from '../../../domain/role/RoleValidator';
+import { InjectionTokens } from '../../../../shared/InjectionTokens';
 
 @CommandHandler(CreateRoleCommand)
 export class CreateRoleHandler
