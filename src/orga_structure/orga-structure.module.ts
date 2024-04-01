@@ -3,16 +3,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoleModel } from './infrastructure/model/Role.model';
 import { RoleController } from './api/controllers/role.controller';
 import { CqrsModule } from '@nestjs/cqrs';
-import { FindRoleByIdHandler } from './application/query/handlers/FindRoleByIdHandler';
-import { FindRolesHandler } from './application/query/handlers/FindRolesHandler';
-import { GetHierarchyHandler } from './application/query/handlers/GetHierarchyHandler';
+
 import { InjectionTokens } from 'src/shared/InjectionTokens';
 import { RolesRepositoryImpl } from './infrastructure/repository/RoleRepositoryImpl';
 import { RoleFactory } from './domain/role/RoleFactory';
-import { DeleteRoleHandler } from './application/command/handlers/DeleteRoleHandler';
-import { UpdateRoleHandler } from './application/command/handlers/UpdateRoleHandler';
-import { CreateRoleHandler } from './application/command/handlers/CreateRoleHandler';
+
 import { RoleValidator } from './domain/role/RoleValidator';
+import { FindRoleByIdHandler } from './application/query/find-role/FindRoleByIdHandler';
+import { FindRolesHandler } from './application/query/find-roles/FindRolesHandler';
+import { GetHierarchyHandler } from './application/query/get-hierarchy/GetHierarchyHandler';
+import { CreateRoleHandler } from './application/command/create/CreateRoleHandler';
+import { UpdateRoleHandler } from './application/command/update/UpdateRoleHandler';
+import { DeleteRoleHandler } from './application/command/delete/DeleteRoleHandler';
 
 const infrastructure: Provider[] = [
   {

@@ -4,31 +4,39 @@ import {
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
   ParseUUIDPipe,
   Post,
   Put,
   Query,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiBody, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { FindRoleByIdQuery } from 'src/orga_structure/application/query/FindRoleByIdQuery';
-import { FindRolesQuery } from 'src/orga_structure/application/query/FindRolesQuery';
-import { FindRoleResponseDTO } from '../dto/find-role/find-role.response.dto';
-import { FindRolesResponseDTO } from '../dto/find-role/find-roles.response.dto';
-import { CreateRoleCommand } from 'src/orga_structure/application/command/CreateRoleCommand';
+import {
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { FindRoleResponseDto } from '../dto/find-role/find-role.response.dto';
+import { FindRolesResponseDto } from '../dto/find-role/find-roles.response.dto';
 import { ZodValidationPipe } from 'src/shared/validator';
 import {
   CreateRoleDto,
   createRoleSchema,
 } from '../dto/create-role/create-role-request.dto';
-import { GetHierarchyQuery } from 'src/orga_structure/application/query/GetHierarchyQuery';
-import { DeleteRoleCommand } from 'src/orga_structure/application/command/DeleteRoleCommand';
 import {
   UpdateRoleDto,
   updateRoleSchema,
 } from '../dto/update-role/update-role-request.dto';
-import { UpdateRoleCommand } from 'src/orga_structure/application/command/UpdateRoleCommand';
+import { FindRoleByIdQuery } from 'src/orga_structure/application/query/find-role/FindRoleByIdQuery';
+import { FindRolesQuery } from 'src/orga_structure/application/query/find-roles/FindRolesQuery';
+import { GetHierarchyQuery } from 'src/orga_structure/application/query/get-hierarchy/GetHierarchyQuery';
+import { CreateRoleCommand } from 'src/orga_structure/application/command/create/CreateRoleCommand';
+import { UpdateRoleCommand } from 'src/orga_structure/application/command/update/UpdateRoleCommand';
+import { DeleteRoleCommand } from 'src/orga_structure/application/command/delete/DeleteRoleCommand';
 
+@ApiTags('Roles')
 @Controller('roles')
 export class RoleController {
   constructor(
@@ -89,15 +97,17 @@ export class RoleController {
     },
     required: false,
   })
-  @ApiResponse({ status: 200, type: FindRolesResponseDTO })
+  @ApiResponse({ status: 200, type: FindRolesResponseDto })
   @Get()
   async getRoles(
-    @Query('name') name,
-    @Query('description') description,
-    @Query('reportsTo') reportsTo,
-    @Query('hierarchy') hierachy,
-  ): Promise<FindRolesResponseDTO> {
-    if (hierachy) {
+    @Query('name') name: string,
+    @Query('description') description: string,
+    @Query('reportsTo', new ParseUUIDPipe({ version: '4', optional: true }))
+    reportsTo: string,
+    @Query('hierarchy', new ParseBoolPipe({ optional: true }))
+    hierarchy: boolean,
+  ): Promise<FindRolesResponseDto> {
+    if (hierarchy) {
       return this.queryBus.execute(new GetHierarchyQuery());
     } else {
       const query = new FindRolesQuery(name, description, reportsTo);
@@ -112,10 +122,16 @@ export class RoleController {
       format: 'uuid',
     },
   })
+  @ApiResponse({
+    status: 200,
+    type: FindRoleResponseDto,
+    description: 'Success',
+  })
+  @ApiResponse({ status: 404, description: 'Role not found.' })
   @Get(':roleId')
   async getRole(
     @Param('roleId', new ParseUUIDPipe({ version: '4' })) roleId: string,
-  ): Promise<FindRoleResponseDTO> {
+  ): Promise<FindRoleResponseDto> {
     const result = this.queryBus.execute(new FindRoleByIdQuery(roleId));
     return result;
   }
@@ -140,6 +156,8 @@ export class RoleController {
       format: 'uuid',
     },
   })
+  @ApiResponse({ status: 400, description: 'Bad request.' })
+  @ApiResponse({ status: 404, description: 'Role not found.' })
   @Put(':roleId')
   async updateRole(
     @Param('roleId', new ParseUUIDPipe({ version: '4' })) roleId: string,

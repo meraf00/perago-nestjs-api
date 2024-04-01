@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-
-import { FindRoleResult } from 'src/orga_structure/application/query/result/FindRoleResult';
+import { FindRoleResult } from 'src/orga_structure/application/query/find-role/FindRoleResult';
 
 class Role {
   @ApiProperty({ example: '550e8400-e29b-41d4-a716-446655440001' })
@@ -28,7 +27,7 @@ class Role {
   readonly subordinates: string[];
 }
 
-export class FindRolesResponseDTO extends FindRoleResult {
+export class FindRolesResponseDto extends FindRoleResult {
   @ApiProperty({ type: [Role] })
   readonly roles: Role[];
 }

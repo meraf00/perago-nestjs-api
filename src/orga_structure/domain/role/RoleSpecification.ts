@@ -34,7 +34,7 @@ export class ChildOfSpec extends CompositeSpecification<Role> {
 
   isSatisfiedBy(role: Role): boolean {
     if (typeof this.role === 'string') {
-      return role.reportsTo.id === this.role;
+      return role.reportsTo && role.reportsTo.id === this.role;
     }
     if (this.role === null) {
       return role.reportsTo === null;

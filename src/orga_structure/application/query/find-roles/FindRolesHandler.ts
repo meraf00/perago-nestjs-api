@@ -1,6 +1,4 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { FindRolesQuery } from '../FindRolesQuery';
-import { FindRolesResult } from '../result/FindRolesResult';
 import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { Inject } from '@nestjs/common';
 import { InjectionTokens } from 'src/shared/InjectionTokens';
@@ -9,6 +7,8 @@ import {
   RoleDescriptionContainsSpec,
   RoleNameSpec,
 } from 'src/orga_structure/domain/role/RoleSpecification';
+import { FindRolesResult } from './FindRolesResult';
+import { FindRolesQuery } from './FindRolesQuery';
 
 @QueryHandler(FindRolesQuery)
 export class FindRolesHandler
