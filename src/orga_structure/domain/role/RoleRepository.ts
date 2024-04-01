@@ -2,7 +2,7 @@ import { ISpecification } from 'src/shared/specification';
 import { Role } from './Role';
 import { Hierarchy } from './Hierarchy';
 
-export interface RolesRepository {
+export interface IRolesRepository {
   generateId: () => Promise<string>;
   save: (role: Role | Role[]) => Promise<void>;
   findById: (id: string) => Promise<Role | null>;

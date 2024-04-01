@@ -2,13 +2,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ISpecification } from 'src/shared/specification';
 import { Role, RoleProperties } from 'src/orga_structure/domain/role/Role';
 import { RoleModel } from 'src/orga_structure/infrastructure/model/Role.model';
-import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
+import { IRolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { RoleFactory } from 'src/orga_structure/domain/role/RoleFactory';
 import { Hierarchy } from 'src/orga_structure/domain/role/Hierarchy';
 
-export class RolesRepositoryImpl implements RolesRepository {
+export class RolesRepositoryImpl implements IRolesRepository {
   constructor(
     private readonly roleFactory: RoleFactory,
     //

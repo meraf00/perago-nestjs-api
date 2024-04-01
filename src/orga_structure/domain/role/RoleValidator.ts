@@ -1,12 +1,12 @@
 import { Inject } from '@nestjs/common';
-import { RolesRepository } from './RoleRepository';
+import { IRolesRepository } from './RoleRepository';
 import { InjectionTokens } from 'src/shared/InjectionTokens';
 import { Role } from './Role';
 
 export class RoleValidator {
   constructor(
     @Inject(InjectionTokens.ROLE_REPOSITORY)
-    private readonly roleRepository: RolesRepository,
+    private readonly roleRepository: IRolesRepository,
   ) {}
 
   async isRoot(role: Role): Promise<boolean> {

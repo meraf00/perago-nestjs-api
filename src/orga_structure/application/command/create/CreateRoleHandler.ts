@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateRoleCommand } from './CreateRoleCommand';
-import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
+import { IRolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { RoleFactory } from 'src/orga_structure/domain/role/RoleFactory';
 import { InjectionTokens } from 'src/shared/InjectionTokens';
 import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
@@ -12,7 +12,7 @@ export class CreateRoleHandler
 {
   constructor(
     @Inject(InjectionTokens.ROLE_REPOSITORY)
-    private readonly rolesRepository: RolesRepository,
+    private readonly rolesRepository: IRolesRepository,
     private readonly roleFactory: RoleFactory,
     private readonly roleValidator: RoleValidator,
   ) {}

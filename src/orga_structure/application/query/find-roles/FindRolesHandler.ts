@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
+import { IRolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { Inject } from '@nestjs/common';
 import { InjectionTokens } from 'src/shared/InjectionTokens';
 import {
@@ -16,7 +16,7 @@ export class FindRolesHandler
 {
   constructor(
     @Inject(InjectionTokens.ROLE_REPOSITORY)
-    private readonly rolesRepository: RolesRepository,
+    private readonly rolesRepository: IRolesRepository,
   ) {}
 
   async execute(query: FindRolesQuery): Promise<FindRolesResult> {

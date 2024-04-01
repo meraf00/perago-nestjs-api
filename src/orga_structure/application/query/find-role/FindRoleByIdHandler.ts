@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
+import { IRolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { FindRoleByIdQuery } from './FindRoleByIdQuery';
 import { FindRoleResult } from './FindRoleResult';
 import { Inject } from '@nestjs/common';
@@ -11,7 +11,7 @@ export class FindRoleByIdHandler
 {
   constructor(
     @Inject(InjectionTokens.ROLE_REPOSITORY)
-    private readonly rolesRepository: RolesRepository,
+    private readonly rolesRepository: IRolesRepository,
   ) {}
 
   async execute(query: FindRoleByIdQuery): Promise<FindRoleResult> {
