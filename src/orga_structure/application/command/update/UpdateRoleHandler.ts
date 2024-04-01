@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UpdateRoleCommand } from '../UpdateRoleCommand';
+import { UpdateRoleCommand } from './UpdateRoleCommand';
 import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { InjectionTokens } from 'src/shared/InjectionTokens';
 import { ConflictException, Inject, NotFoundException } from '@nestjs/common';

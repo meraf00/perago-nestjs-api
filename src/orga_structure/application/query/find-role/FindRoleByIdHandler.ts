@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
-import { FindRoleByIdQuery } from '../FindRoleByIdQuery';
-import { FindRoleResult } from '../result/FindRoleResult';
+import { FindRoleByIdQuery } from './FindRoleByIdQuery';
+import { FindRoleResult } from './FindRoleResult';
 import { Inject } from '@nestjs/common';
 import { InjectionTokens } from 'src/shared/InjectionTokens';
 

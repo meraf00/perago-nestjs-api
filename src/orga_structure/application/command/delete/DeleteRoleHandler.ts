@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { DeleteRoleCommand } from '../DeleteRoleCommand';
+import { DeleteRoleCommand } from './DeleteRoleCommand';
 import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
 import { InjectionTokens } from 'src/shared/InjectionTokens';
 import { Inject, NotFoundException } from '@nestjs/common';

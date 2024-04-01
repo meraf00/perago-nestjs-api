@@ -1,7 +1,7 @@
 import { QueryHandler } from '@nestjs/cqrs';
-import { GetHierarchyQuery } from '../GetHierarchyQuery';
+import { GetHierarchyQuery } from './GetHierarchyQuery';
 import { RolesRepository } from 'src/orga_structure/domain/role/RoleRepository';
-import { GetHierarchyResult } from '../result/GetHierarchyResult';
+import { GetHierarchyResult } from './GetHierarchyResult';
 import { InjectionTokens } from 'src/shared/InjectionTokens';
 import { Inject } from '@nestjs/common';
 
