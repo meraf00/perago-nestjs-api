@@ -39,7 +39,7 @@ export class CreateRoleHandler
       reportsTo: parent,
     });
 
-    if (await this.roleValidator.isValid(role)) {
+    if (await this.roleValidator.validateUniqueRootRole(role)) {
       await this.rolesRepository.save(role);
     } else {
       throw new ConflictException('Root role already exists.');

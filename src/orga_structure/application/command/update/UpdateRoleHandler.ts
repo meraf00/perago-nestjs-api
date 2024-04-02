@@ -1,9 +1,15 @@
-import { ConflictException, Inject, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Inject,
+  NotFoundException,
+} from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UpdateRoleCommand } from './UpdateRoleCommand';
 import { IRolesRepository } from '../../../domain/role/RoleRepository';
 import { InjectionTokens } from '../../../../shared/InjectionTokens';
 import { RoleValidator } from '../../../domain/role/RoleValidator';
+import { RoleValidationException } from '../../../domain/role/Exceptions';
 
 @CommandHandler(UpdateRoleCommand)
 export class UpdateRoleHandler
@@ -23,14 +29,18 @@ export class UpdateRoleHandler
       throw new NotFoundException('Parent role not found.');
     }
 
-    role.updateName(command.name);
-    role.updateDescription(command.description);
-    role.updateParent(parent);
+    try {
+      role.updateName(command.name);
+      role.updateDescription(command.description);
+      role.updateParent(parent);
+    } catch (e) {
+      throw new BadRequestException(e.message);
+    }
 
-    if (this.roleValidator.isValid(role)) {
+    if (this.roleValidator.validateUniqueRootRole(role)) {
       await this.rolesRepository.save(role);
     } else {
-      throw new ConflictException('Root role already exists.');
+      throw new BadRequestException('Root role already exists.');
     }
   }
 }

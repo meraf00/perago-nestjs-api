@@ -1,5 +1,6 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { BaseModel } from '../../../shared/BaseModel';
+import { RoleValidationException } from './Exceptions';
 
 export type RoleProperties = BaseModel & {
   name: string;
@@ -23,6 +24,12 @@ export class Role extends AggregateRoot implements RoleProperties {
   }
 
   updateName(name: string): void {
+    if (name.length < 1) {
+      throw new RoleValidationException(
+        'Role name must be at least 1 character long.',
+      );
+    }
+
     this.name = name;
     this.updatedAt = new Date();
   }
@@ -32,8 +39,16 @@ export class Role extends AggregateRoot implements RoleProperties {
     this.updatedAt = new Date();
   }
 
-  updateParent(role: Role): void {
-    this.reportsTo = role;
+  updateParent(parentRole: Role): void {
+    if (this.reportsTo === null && parentRole !== null) {
+      throw new RoleValidationException('Root role cannot have a parent.');
+    }
+
+    if (parentRole && this.id === parentRole.id) {
+      throw new RoleValidationException('Role cannot report to itself.');
+    }
+
+    this.reportsTo = parentRole;
     this.updatedAt = new Date();
   }
 
