@@ -11,7 +11,7 @@ export const createRoleSchema = z
 
 export type CreateRoleType = z.infer<typeof createRoleSchema>;
 
-export class CreateRoleDto implements CreateRoleType {
+export class CreateRoleRequestDto implements CreateRoleType {
   @ApiProperty()
   name: string;
 

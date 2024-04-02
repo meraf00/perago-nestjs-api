@@ -22,11 +22,11 @@ import { FindRoleResponseDto } from '../dto/find-role/find-role.response.dto';
 import { FindRolesResponseDto } from '../dto/find-role/find-roles.response.dto';
 import { ZodValidationPipe } from '../../../shared/validator';
 import {
-  CreateRoleDto,
+  CreateRoleRequestDto,
   createRoleSchema,
 } from '../dto/create-role/create-role-request.dto';
 import {
-  UpdateRoleDto,
+  UpdateRoleRequestDto,
   updateRoleSchema,
 } from '../dto/update-role/update-role-request.dto';
 import { FindRoleByIdQuery } from '../../application/query/find-role/FindRoleByIdQuery';
@@ -45,7 +45,7 @@ export class RolesController {
   ) {}
 
   @ApiBody({
-    type: CreateRoleDto,
+    type: CreateRoleRequestDto,
     required: true,
     examples: {
       'Create Role': {
@@ -62,7 +62,7 @@ export class RolesController {
   @ApiResponse({ status: 409, description: "Role parent doesn't exist" })
   @Post()
   async create(
-    @Body(new ZodValidationPipe(createRoleSchema)) dto: CreateRoleDto,
+    @Body(new ZodValidationPipe(createRoleSchema)) dto: CreateRoleRequestDto,
   ) {
     const command = new CreateRoleCommand(
       dto.name,
@@ -137,7 +137,7 @@ export class RolesController {
   }
 
   @ApiBody({
-    type: UpdateRoleDto,
+    type: UpdateRoleRequestDto,
     required: true,
     examples: {
       'Update Role': {
@@ -161,7 +161,7 @@ export class RolesController {
   @Put(':roleId')
   async update(
     @Param('roleId', new ParseUUIDPipe({ version: '4' })) roleId: string,
-    @Body(new ZodValidationPipe(updateRoleSchema)) dto: UpdateRoleDto,
+    @Body(new ZodValidationPipe(updateRoleSchema)) dto: UpdateRoleRequestDto,
   ) {
     const command = new UpdateRoleCommand(
       roleId,
