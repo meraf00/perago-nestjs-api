@@ -4,6 +4,8 @@ import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetHierarchyQuery } from '../../application/query/get-hierarchy/GetHierarchyQuery';
 import { ConflictException, NotFoundException } from '@nestjs/common';
+import { BaseResponse } from '../dto/BaseResponse';
+import { FindRolesResponseDto } from '../dto/find-role/find-roles.response.dto';
 
 const moduleMocker = new ModuleMocker(global);
 
@@ -109,7 +111,8 @@ describe('RolesController', () => {
         request.hierarchy,
       );
 
-      expect(result).toBe(queryResult);
+      expect(result).toBeInstanceOf(FindRolesResponseDto);
+      expect(result.data).toBe(queryResult);
     });
   });
 

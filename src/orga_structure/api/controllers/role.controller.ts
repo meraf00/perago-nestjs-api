@@ -35,6 +35,7 @@ import { GetHierarchyQuery } from '../../application/query/get-hierarchy/GetHier
 import { CreateRoleCommand } from '../../application/command/create/CreateRoleCommand';
 import { UpdateRoleCommand } from '../../application/command/update/UpdateRoleCommand';
 import { DeleteRoleCommand } from '../../application/command/delete/DeleteRoleCommand';
+import { GetHierarchyResponseDto } from '../dto/get-hierarchy/get-hierarchy.response.dto';
 
 @ApiTags('Roles')
 @Controller('roles')
@@ -97,6 +98,7 @@ export class RolesController {
     },
     required: false,
   })
+  @ApiResponse({ status: 200, type: GetHierarchyResponseDto })
   @ApiResponse({ status: 200, type: FindRolesResponseDto })
   @Get()
   async find(
@@ -106,12 +108,14 @@ export class RolesController {
     reportsTo: string,
     @Query('hierarchy', new ParseBoolPipe({ optional: true }))
     hierarchy: boolean,
-  ): Promise<FindRolesResponseDto> {
+  ): Promise<FindRolesResponseDto | GetHierarchyResponseDto> {
     if (hierarchy) {
-      return this.queryBus.execute(new GetHierarchyQuery());
+      const result = await this.queryBus.execute(new GetHierarchyQuery());
+      return new GetHierarchyResponseDto(result);
     } else {
       const query = new FindRolesQuery(name, description, reportsTo);
-      return this.queryBus.execute(query);
+      const roles = await this.queryBus.execute(query);
+      return new FindRolesResponseDto(roles);
     }
   }
 

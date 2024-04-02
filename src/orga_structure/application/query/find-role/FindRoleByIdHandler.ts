@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { Inject } from '@nestjs/common';
+import { Inject, NotFoundException } from '@nestjs/common';
 import { InjectionTokens } from '../../../../shared/InjectionTokens';
 import { IRolesRepository } from '../../../domain/role/RoleRepository';
 import { FindRoleByIdQuery } from './FindRoleByIdQuery';
@@ -17,12 +17,22 @@ export class FindRoleByIdHandler
   async execute(query: FindRoleByIdQuery): Promise<FindRoleResult> {
     const role = await this.rolesRepository.findById(query.id);
 
+    if (!role) {
+      throw new NotFoundException('Role not found.');
+    }
+
     const roleDto = {
       ...role,
-      reportsTo: role.reportsTo ? role.reportsTo.id : null,
-      subordinates: role.subordinates.map((subordinate) => subordinate.id),
     };
 
-    return new FindRoleResult(roleDto);
+    return new FindRoleResult(
+      roleDto.id,
+      roleDto.name,
+      roleDto.description,
+      roleDto.reportsTo,
+      roleDto.subordinates,
+      roleDto.createdAt,
+      roleDto.updatedAt,
+    );
   }
 }

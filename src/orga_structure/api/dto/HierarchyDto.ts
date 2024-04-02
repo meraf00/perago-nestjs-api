@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { BaseResponse } from './BaseResponse';
 
-export class RoleDto {
+class Hierarchy {
   @ApiProperty({
     example: '550e8400-e29b-41d4-a716-446655440001',
     type: String,
@@ -18,25 +19,15 @@ export class RoleDto {
   readonly description: string;
 
   @ApiProperty({
-    description: 'The role that this role reports to.',
-    type: () => RoleDto,
-    nullable: true,
-  })
-  readonly reportsTo: string;
-
-  @ApiProperty({
     description: 'List of the roles that report to this role.',
-    type: () => [RoleDto],
+    type: () => [Hierarchy],
   })
-  readonly subordinates: RoleDto[];
+  readonly subordinates: HierarchyDto[];
+}
 
+export class HierarchyDto {
   @ApiProperty({
-    type: Date,
+    type: Hierarchy,
   })
-  readonly createdAt: Date;
-
-  @ApiProperty({
-    type: Date,
-  })
-  readonly updatedAt: Date;
+  hierarchy: Hierarchy;
 }
