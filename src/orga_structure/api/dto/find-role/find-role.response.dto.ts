@@ -1,28 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { FindRoleResult } from '../../../application/query/find-role/FindRoleResult';
+import { BaseResponse } from '../BaseResponse';
+import { RoleDto } from '../RoleDto';
 
-export class FindRoleResponseDto extends FindRoleResult {
-  @ApiProperty({ example: '550e8400-e29b-41d4-a716-446655440001' })
-  readonly id: string;
+export class FindRoleResponseDto implements BaseResponse<FindRoleResult> {
+  @ApiProperty({ example: 200, type: Number })
+  statusCode: number;
 
-  @ApiProperty({ example: 'CEO' })
-  readonly name: string;
+  @ApiProperty({ type: RoleDto, required: false })
+  data: FindRoleResult;
 
-  @ApiProperty({
-    example:
-      'The chief executive officer (CEO) is the highest-ranking person in a company.',
-  })
-  readonly description: string;
+  @ApiProperty({ example: ['Role not found'], type: [String], required: false })
+  errors?: string[];
 
-  @ApiProperty({
-    example: '550e8400-e29b-41d4-a716-446655440000',
-    description: 'The ID of the role that this role reports to.',
-  })
-  readonly reportsTo: string;
-
-  @ApiProperty({
-    example: ['550e8400-e29b-41d4-a716-446655440002'],
-    description: 'The IDs of the roles that report to this role.',
-  })
-  readonly subordinates: string[];
+  constructor(result: FindRoleResult) {
+    this.statusCode = 200;
+    this.data = result;
+  }
 }

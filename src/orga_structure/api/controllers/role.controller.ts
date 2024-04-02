@@ -132,8 +132,8 @@ export class RolesController {
   async findOne(
     @Param('roleId', new ParseUUIDPipe({ version: '4' })) roleId: string,
   ): Promise<FindRoleResponseDto> {
-    const result = this.queryBus.execute(new FindRoleByIdQuery(roleId));
-    return result;
+    const result = await this.queryBus.execute(new FindRoleByIdQuery(roleId));
+    return new FindRoleResponseDto(result);
   }
 
   @ApiBody({

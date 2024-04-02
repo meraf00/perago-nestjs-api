@@ -28,6 +28,6 @@ export class FindRolesHandler
       nameSpec.and(descSpec).and(parentSpec),
     );
 
-    return new FindRolesResult(roles);
+    return new FindRolesResult(...roles);
   }
 }
