@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { IRolesRepository } from './RoleRepository';
-import { InjectionTokens } from 'src/shared/InjectionTokens';
+import { InjectionTokens } from '../../../shared/InjectionTokens';
 import { Role } from './Role';
 
 export class RoleValidator {

@@ -4,7 +4,7 @@ import { RoleModel } from './infrastructure/model/Role.model';
 import { RolesController } from './api/controllers/role.controller';
 import { CqrsModule } from '@nestjs/cqrs';
 
-import { InjectionTokens } from 'src/shared/InjectionTokens';
+import { InjectionTokens } from '../shared/InjectionTokens';
 import { RolesRepositoryImpl } from './infrastructure/repository/RoleRepositoryImpl';
 import { RoleFactory } from './domain/role/RoleFactory';
 

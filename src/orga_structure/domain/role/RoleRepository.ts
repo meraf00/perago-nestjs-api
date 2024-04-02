@@ -1,4 +1,4 @@
-import { ISpecification } from 'src/shared/specification';
+import { ISpecification } from '../../../shared/specification';
 import { Role } from './Role';
 import { Hierarchy } from './Hierarchy';
 

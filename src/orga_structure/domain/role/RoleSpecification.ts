@@ -1,4 +1,4 @@
-import { CompositeSpecification } from 'src/shared/specification';
+import { CompositeSpecification } from '../../../shared/specification';
 import { Role } from './Role';
 
 export class RoleNameSpec extends CompositeSpecification<Role> {
