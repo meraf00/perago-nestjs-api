@@ -3,18 +3,11 @@ import { FindRoleResult } from '../../../application/query/find-role/FindRoleRes
 import { BaseResponse } from '../BaseResponse';
 import { RoleDto } from '../RoleDto';
 
-export class FindRoleResponseDto implements BaseResponse<FindRoleResult> {
-  @ApiProperty({ example: 200, type: Number })
-  statusCode: number;
-
+export class FindRoleResponseDto extends BaseResponse<FindRoleResult> {
   @ApiProperty({ type: RoleDto, required: false })
   data: FindRoleResult;
 
-  @ApiProperty({ example: ['Role not found'], type: [String], required: false })
-  errors?: string[];
-
   constructor(result: FindRoleResult) {
-    this.statusCode = 200;
-    this.data = result;
+    super(200, result);
   }
 }
