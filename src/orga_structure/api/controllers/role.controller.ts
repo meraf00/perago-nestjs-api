@@ -20,7 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { FindRoleResponseDto } from '../dto/find-role/find-role.response.dto';
 import { FindRolesResponseDto } from '../dto/find-role/find-roles.response.dto';
-import { ZodValidationPipe } from 'src/shared/validator';
+import { ZodValidationPipe } from '../../../shared/validator';
 import {
   CreateRoleDto,
   createRoleSchema,
@@ -61,7 +61,7 @@ export class RolesController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 409, description: "Role parent doesn't exist" })
   @Post()
-  async createRole(
+  async create(
     @Body(new ZodValidationPipe(createRoleSchema)) dto: CreateRoleDto,
   ) {
     const command = new CreateRoleCommand(
@@ -99,7 +99,7 @@ export class RolesController {
   })
   @ApiResponse({ status: 200, type: FindRolesResponseDto })
   @Get()
-  async getRoles(
+  async find(
     @Query('name') name: string,
     @Query('description') description: string,
     @Query('reportsTo', new ParseUUIDPipe({ version: '4', optional: true }))
@@ -129,7 +129,7 @@ export class RolesController {
   })
   @ApiResponse({ status: 404, description: 'Role not found.' })
   @Get(':roleId')
-  async getRole(
+  async findOne(
     @Param('roleId', new ParseUUIDPipe({ version: '4' })) roleId: string,
   ): Promise<FindRoleResponseDto> {
     const result = this.queryBus.execute(new FindRoleByIdQuery(roleId));
@@ -159,7 +159,7 @@ export class RolesController {
   @ApiResponse({ status: 400, description: 'Bad request.' })
   @ApiResponse({ status: 404, description: 'Role not found.' })
   @Put(':roleId')
-  async updateRole(
+  async update(
     @Param('roleId', new ParseUUIDPipe({ version: '4' })) roleId: string,
     @Body(new ZodValidationPipe(updateRoleSchema)) dto: UpdateRoleDto,
   ) {
@@ -180,9 +180,9 @@ export class RolesController {
     },
   })
   @Delete(':roleId')
-  async deleteRole(
+  async delete(
     @Param('roleId', new ParseUUIDPipe({ version: '4' })) roleId: string,
   ) {
-    this.commandBus.execute(new DeleteRoleCommand(roleId));
+    return this.commandBus.execute(new DeleteRoleCommand(roleId));
   }
 }
