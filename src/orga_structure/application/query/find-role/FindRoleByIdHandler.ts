@@ -21,18 +21,14 @@ export class FindRoleByIdHandler
       throw new NotFoundException('Role not found.');
     }
 
-    const roleDto = {
-      ...role,
-    };
-
     return new FindRoleResult(
-      roleDto.id,
-      roleDto.name,
-      roleDto.description,
-      roleDto.reportsTo,
-      roleDto.subordinates,
-      roleDto.createdAt,
-      roleDto.updatedAt,
+      role.id,
+      role.name,
+      role.description,
+      role.reportsTo,
+      role.subordinates,
+      role.createdAt,
+      role.updatedAt,
     );
   }
 }
