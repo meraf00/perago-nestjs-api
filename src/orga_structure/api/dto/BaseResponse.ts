@@ -7,12 +7,16 @@ export abstract class BaseResponse<T> {
   @ApiProperty({ required: false })
   data?: T;
 
-  @ApiProperty({ example: ['Role not found'], type: [String], required: false })
-  errors?: string[];
+  @ApiProperty({ example: 'Not found', type: String, required: false })
+  error?: string;
 
-  constructor(statusCode: number, data?: T, errors?: string[]) {
+  @ApiProperty({ example: 'Role not found', type: String, required: false })
+  message: string;
+
+  constructor(statusCode: number, data?: T, error?: string, message?: string) {
     this.statusCode = statusCode;
     this.data = data;
-    this.errors = errors;
+    this.error = error;
+    this.message = message;
   }
 }
