@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrgaStructureModule } from './orga_structure/orga-structure.module';
+import { DataSource } from 'typeorm';
+import { UserEntity } from './entities/user.entity';
+import { PhotoEntity } from './entities/photo.entity';
 
 @Module({
   imports: [
@@ -13,16 +15,17 @@ import { OrgaStructureModule } from './orga_structure/orga-structure.module';
       username: 'postgres',
       password: 'root',
       database: 'orga_structure',
-      entities: [__dirname + '/**/*.model{.ts,.js}'],
+      entities: [UserEntity, PhotoEntity],
       synchronize: true,
-      autoLoadEntities: true,
     }),
-
-    OrgaStructureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
-  constructor() {}
+  constructor(private dataSource: DataSource) {
+console.log(dataSource.toString())
+
+  }
+
 }
