@@ -13,6 +13,7 @@ import { RoleModule } from './role/role.module';
       database: 'orga_structure',
       entities: [__dirname + '/**/*.entity{.ts}'],
       synchronize: true,
+      autoLoadEntities: true,
     }),
 
     RoleModule,
